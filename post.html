@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>نشر سيارة</title>
+<style>
+  body { font-family: Arial, sans-serif; direction: rtl; padding: 20px; background: #f9f9f9; }
+  h2 { color: #333; }
+  input, textarea, button { display: block; margin: 10px 0; padding: 8px; width: 100%; max-width: 400px; }
+</style>
+</head>
+<body>
+<h2>📝 نشر سيارة</h2>
+<input type="text" id="type" placeholder="نوع السيارة">
+<input type="text" id="color" placeholder="اللون">
+<input type="text" id="chassis" placeholder="رقم الشاسيه">
+<input type="text" id="plate" placeholder="رقم اللوحة">
+<input type="text" id="location" placeholder="الموقع">
+<input type="date" id="date">
+<textarea id="notes" placeholder="ملاحظات إضافية"></textarea>
+<input type="text" id="fbLink" placeholder="رابط منشور فيسبوك (اختياري)">
+<input type="text" id="fbImage" placeholder="رابط صورة منشور فيسبوك (اختياري)">
+<button onclick="handlePost()">نشر</button>
+<script src="main.js"></script>
+</body>
+</html>

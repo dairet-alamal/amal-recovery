@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -6,43 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>منصة الأمل لاسترداد المركبات</title>
 <style>
-  body { font-family: Arial, sans-serif; direction: rtl; padding: 20px; background: #f9f9f9; }
-  h1, h2 { color: #2c3e50; }
-  input, textarea, button { display: block; margin: 10px 0; padding: 8px; max-width: 400px; width: 100%; }
-  button { background-color: #3498db; color: white; border: none; cursor: pointer; }
-  .car-box { background: white; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; position: relative; }
-  .report-btn { position: absolute; top: 10px; left: 10px; background: #e74c3c; }
-  .facebook-post { border: 1px solid #4267B2; background: #e7f3ff; padding: 10px; margin: 10px 0; max-width: 420px; }
-  .facebook-post img { max-width: 100%; }
+  body { font-family: Arial, sans-serif; direction: rtl; background: #007BFF; color: white; padding: 20px; text-align: center; }
+  h1 { font-size: 28px; }
+  h3 { font-weight: normal; margin-top: -10px; color: #e0e0e0; }
+  .btn { background: white; color: #007BFF; padding: 15px 25px; margin: 20px; border: none; cursor: pointer; font-size: 16px; border-radius: 5px; }
+  footer { position: fixed; bottom: 10px; right: 10px; color: white; font-weight: bold; }
 </style>
 </head>
 <body>
-<h1>🚗 منصة الأمل لاسترداد المركبات</h1>
-
-<div>
-  <h2>🔎 البحث عن سيارة</h2>
-  <input type="text" id="search-type" placeholder="نوع السيارة">
-  <input type="text" id="search-color" placeholder="اللون">
-  <input type="text" id="search-chassis" placeholder="رقم الشاسيه">
-  <button onclick="handleSearch()">بحث</button>
-  <div id="results"></div>
-</div>
-
-<hr style="margin:30px 0;">
-
-<div>
-  <h2>📝 نشر سيارة</h2>
-  <input type="text" id="type" placeholder="نوع السيارة">
-  <input type="text" id="color" placeholder="اللون">
-  <input type="text" id="chassis" placeholder="رقم الشاسيه">
-  <input type="text" id="location" placeholder="الموقع">
-  <input type="date" id="date" placeholder="تاريخ الظهور">
-  <textarea id="notes" placeholder="ملاحظات إضافية"></textarea>
-  <input type="text" id="fbLink" placeholder="رابط منشور فيسبوك (اختياري)">
-  <input type="text" id="fbImage" placeholder="رابط صورة منشور فيسبوك (اختياري)">
-  <button onclick="handlePost()">نشر</button>
-</div>
-
-<script src="main.js"></script>
+  <h1>🚗 منصة الأمل لاسترداد المركبات</h1>
+  <h3>مقدمة من منظمة دايرة الأمل</h3>
+  <button class="btn" onclick="location.href='search.html'">🔎 الدخول إلى البحث</button>
+  <button class="btn" onclick="location.href='post.html'">📝 الدخول إلى النشر</button>
+  <footer>H. H. I. M</footer>
 </body>
 </html>
