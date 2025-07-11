@@ -1,25 +1,26 @@
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>بحث عن سيارة</title>
-<style>
-  body { font-family: Arial, sans-serif; direction: rtl; padding: 20px; background: #f2f2f2; }
-  h2 { color: #333; }
-  input, button { display: block; margin: 10px 0; padding: 8px; width: 100%; max-width: 400px; }
-  .car-box { background: white; border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
-  .facebook-post { background: #e9f3ff; border: 1px solid #4267B2; padding: 10px; margin-top: 10px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>البحث عن المركبات</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-<h2>🔍 البحث عن سيارة</h2>
-<input type="text" id="search-type" placeholder="نوع السيارة">
-<input type="text" id="search-color" placeholder="اللون">
-<input type="text" id="search-chassis" placeholder="رقم الشاسيه (اختياري)">
-<input type="text" id="search-plate" placeholder="رقم اللوحة (اختياري)">
-<button onclick="handleSearch()">بحث</button>
-<div id="results"></div>
-<script src="main.js"></script>
+  <h2>🔍 البحث عن السيارات</h2>
+  <div class="search-box">
+    <input type="text" id="search-type" placeholder="نوع العربة" oninput="handleSearch()"/>
+    <input type="text" id="search-color" placeholder="اللون" oninput="handleSearch()"/>
+    <input type="text" id="search-chassis" placeholder="رقم الشاسيه" oninput="handleSearch()"/>
+    <input type="text" id="search-plate" placeholder="رقم اللوحة" oninput="handleSearch()"/>
+  </div>
+  <hr/>
+  <div id="results" class="results"></div>
+  <script src="main.js"></script>
+  <script>
+    // عرض جميع السيارات عند فتح الصفحة
+    window.onload = handleSearch;
+  </script>
 </body>
 </html>
