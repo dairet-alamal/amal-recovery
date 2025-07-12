@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>إحصائيات المنصة</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <h2>📊 إحصائيات منصة الأمل لاسترداد المركبات</h2>
+  <div class="stats-box">
+    <p><strong>🚗 عدد المركبات المنشورة:</strong> <span id="total"></span></p>
+    <p><strong>✅ تم استردادها:</strong> <span id="retrieved"></span></p>
+    <p><strong>🚩 منشورات تم التبليغ عنها:</strong> <span id="flagged"></span></p>
+    <p><strong>📊 نسبة الاسترداد:</strong> <span id="percentage"></span></p>
+  </div>
+  <script>
+    const cars = JSON.parse(localStorage.getItem("cars") || "[]");
+    const total = cars.length;
+    const retrieved = cars.filter(c => c.retrieved).length;
+    const flagged = cars.filter(c => c.reported >= 3).length;
+    const percentage = total ? Math.round((retrieved / total) * 100) + "%" : "0%";
+
+    document.getElementById("total").innerText = total;
+    document.getElementById("retrieved").innerText = retrieved;
+    document.getElementById("flagged").innerText = flagged;
+    document.getElementById("percentage").innerText = percentage;
+  </script>
+</body>
+</html>
