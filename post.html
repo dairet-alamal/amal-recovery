@@ -1,1 +1,60 @@
-<!DOCTYPE html><html><body><h2>صفحة النشر</h2></body></html>
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>نشر مركبة</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark">
+  <h2>نشر مركبة</h2>
+  <form id="postForm">
+    <input type="text" placeholder="نوع السيارة" name="type" required /><br>
+    <input type="text" placeholder="اللون" name="color" /><br>
+    <input type="text" placeholder="رقم الشاسيه" name="chassis" /><br>
+    <input type="text" placeholder="رقم اللوحة" name="plate" /><br>
+    <input type="text" placeholder="الموقع" name="location" /><br>
+    <input type="date" name="date" /><br>
+    <textarea placeholder="ملاحظات" name="notes"></textarea><br>
+    <input type="file" accept="image/*" capture="environment" name="image" /><br>
+    <button type="submit">نشر</button>
+  </form>
+
+  <script>
+    
+const firebaseConfig = {
+  apiKey: "AIzaSyANAmBZ2ySOP6hcVMZ2zfu8PsnXnHqZbOA",
+  authDomain: "amal-recovery.firebaseapp.com",
+  projectId: "amal-recovery",
+  storageBucket: "amal-recovery.firebasestorage.app",
+  messagingSenderId: "1082715046722",
+  appId: "1:1082715046722:web:d1a116cc70f2276f513edb",
+  measurementId: "G-Z5D7GQ860S"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+
+    document.getElementById('postForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      await db.collection('cars').add({
+        type: form.type.value,
+        color: form.color.value,
+        chassis: form.chassis.value,
+        plate: form.plate.value,
+        location: form.location.value,
+        date: form.date.value,
+        notes: form.notes.value,
+        found: false,
+        reported: false,
+        timestamp: new Date()
+      });
+      alert("✅ تم نشر المركبة بنجاح");
+      form.reset();
+    });
+  </script>
+</body>
+</html>
