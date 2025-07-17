@@ -1,1 +1,43 @@
-<!DOCTYPE html><html><head><title>نشر مركبة</title></head><body><h1>نموذج النشر</h1></body></html>
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نشر سيارة</title>
+  <script type="module" src="publish.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #121212;
+      color: white;
+      padding: 1rem;
+    }
+    input, textarea, button {
+      display: block;
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background-color: #2196f3;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>نشر سيارة</h1>
+  <input type="text" id="type" placeholder="نوع السيارة" />
+  <input type="text" id="color" placeholder="لون السيارة" />
+  <input type="text" id="plate" placeholder="رقم اللوحة" />
+  <input type="text" id="chassis" placeholder="رقم الشاسيه (اختياري)" />
+  <input type="text" id="facebookLink" placeholder="رابط منشور الفيسبوك (اختياري)" />
+  <input type="file" id="image" accept="image/*" />
+  <button onclick="publish()">نشر</button>
+
+  <p id="status"></p>
+</body>
+</html>
