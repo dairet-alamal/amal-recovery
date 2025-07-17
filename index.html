@@ -3,65 +3,83 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة أمل</title>
+    <title>صفحة البحث - دايرة الأمل</title>
     <style>
         body {
-            margin: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: #005baa;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
             text-align: center;
         }
-        h1 {
-            font-size: 3em;
-            margin: 0.2em 0;
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
         }
-        h2 {
-            font-size: 1.5em;
-            margin: 0.2em 0 2em 0;
-        }
-        .buttons {
-            display: flex;
-            gap: 1em;
-        }
-        .btn {
-            padding: 0.75em 2em;
-            font-size: 1em;
-            border: none;
+        .post {
+            background-color: #222;
+            padding: 15px;
+            margin: 10px;
             border-radius: 10px;
-            background-color: white;
-            color: #005baa;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-        .btn:hover {
-            background-color: #e0e0e0;
-        }
-        footer {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-weight: bold;
-            font-size: 1em;
-            opacity: 0.8;
+            text-align: right;
         }
     </style>
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyANAmBZ2ySOP6hcVMZ2zfu8PsnXnHqZbOA",
+            authDomain: "amal-recovery.firebaseapp.com",
+            projectId: "amal-recovery",
+            storageBucket: "amal-recovery.appspot.com",
+            messagingSenderId: "1082715046722",
+            appId: "1:1082715046722:web:d1a116cc70f2276f513edb",
+            measurementId: "G-Z5D7GQ860S"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function searchPosts() {
+            const query = document.getElementById("searchBox").value.toLowerCase();
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "";
+
+            const snapshot = await getDocs(collection(db, "posts"));
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const matches =
+                    (!query || 
+                    (data.type && data.type.toLowerCase().includes(query)) ||
+                    (data.plate && data.plate.toLowerCase().includes(query)) ||
+                    (data.chassis && data.chassis.toLowerCase().includes(query)));
+
+                if (matches) {
+                    resultsDiv.innerHTML += `
+                        <div class="post">
+                            <strong>النوع:</strong> ${data.type || "غير محدد"}<br>
+                            <strong>اللون:</strong> ${data.color || "غير محدد"}<br>
+                            <strong>رقم اللوحة:</strong> ${data.plate || "غير متوفر"}<br>
+                            <strong>رقم الشاسيه:</strong> ${data.chassis || "غير متوفر"}<br>
+                            ${data.fb_link ? `<a href="${data.fb_link}" target="_blank">رابط منشور فيسبوك</a><br>` : ""}
+                            ${data.found ? "<span style='color: lime;'>✅ تم الاسترداد</span>" : ""}
+                        </div>`;
+                }
+            });
+        }
+
+        window.onload = () => {
+            document.getElementById("searchBtn").onclick = searchPosts;
+            searchPosts();
+        };
+    </script>
 </head>
 <body>
-    <h1>منصة أمل لاسترداد المركبات</h1>
-    <h2>منظمة دايرة الأمل</h2>
-    <div class="buttons">
-        <button class="btn" onclick="location.href='search.html'">البحث</button>
-        <button class="btn" onclick="location.href='publish.html'">النشر</button>
-        <button class="btn" onclick="location.href='stats.html'">الإحصائيات</button>
-    </div>
-    <footer>H. H. I. M</footer>
+    <h1>البحث عن السيارات</h1>
+    <input type="text" id="searchBox" placeholder="ابحث باللون، اللوحة، النوع...">
+    <button id="searchBtn">بحث</button>
+    <div id="results"></div>
 </body>
 </html>
