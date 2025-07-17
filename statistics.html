@@ -1,1 +1,82 @@
-<!DOCTYPE html><html><body><h2>صفحة الإحصائيات</h2></body></html>
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إحصائيات المركبات</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #111;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .stat-box {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 10px auto;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+    .stat-label {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>إحصائيات المركبات</h1>
+  <div class="stat-box">
+    <div class="stat-label">عدد المركبات المنشورة</div>
+    <div class="stat-value" id="totalPosts">جاري التحميل...</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">عدد المركبات المستردة</div>
+    <div class="stat-value" id="recoveredPosts">جاري التحميل...</div>
+  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyANAmBZ2ySOP6hcVMZ2zfu8PsnXnHqZbOA",
+      authDomain: "amal-recovery.firebaseapp.com",
+      projectId: "amal-recovery",
+      storageBucket: "amal-recovery.firebasestorage.app",
+      messagingSenderId: "1082715046722",
+      appId: "1:1082715046722:web:d1a116cc70f2276f513edb",
+      measurementId: "G-Z5D7GQ860S"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadStats() {
+      const querySnapshot = await getDocs(collection(db, "vehicles"));
+      let total = 0, recovered = 0;
+      querySnapshot.forEach((doc) => {
+        total++;
+        if (doc.data().recovered === true) {
+          recovered++;
+        }
+      });
+      document.getElementById("totalPosts").innerText = total;
+      document.getElementById("recoveredPosts").innerText = recovered;
+    }
+
+    loadStats();
+  </script>
+</body>
+</html>
