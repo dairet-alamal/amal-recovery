@@ -2,84 +2,68 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>صفحة البحث - دايرة الأمل</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        input, button {
-            padding: 10px;
-            font-size: 16px;
-            margin: 10px;
-        }
-        .post {
-            background-color: #222;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 10px;
-            text-align: right;
-        }
-    </style>
-    <script type="module">
-        // Firebase imports
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyANAmBZ2ySOP6hcVMZ2zfu8PsnXnHqZbOA",
-            authDomain: "amal-recovery.firebaseapp.com",
-            projectId: "amal-recovery",
-            storageBucket: "amal-recovery.appspot.com",
-            messagingSenderId: "1082715046722",
-            appId: "1:1082715046722:web:d1a116cc70f2276f513edb",
-            measurementId: "G-Z5D7GQ860S"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        async function searchPosts() {
-            const query = document.getElementById("searchBox").value.toLowerCase();
-            const resultsDiv = document.getElementById("results");
-            resultsDiv.innerHTML = "";
-
-            const snapshot = await getDocs(collection(db, "posts"));
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                const matches =
-                    (!query || 
-                    (data.type && data.type.toLowerCase().includes(query)) ||
-                    (data.plate && data.plate.toLowerCase().includes(query)) ||
-                    (data.chassis && data.chassis.toLowerCase().includes(query)));
-
-                if (matches) {
-                    resultsDiv.innerHTML += `
-                        <div class="post">
-                            <strong>النوع:</strong> ${data.type || "غير محدد"}<br>
-                            <strong>اللون:</strong> ${data.color || "غير محدد"}<br>
-                            <strong>رقم اللوحة:</strong> ${data.plate || "غير متوفر"}<br>
-                            <strong>رقم الشاسيه:</strong> ${data.chassis || "غير متوفر"}<br>
-                            ${data.fb_link ? `<a href="${data.fb_link}" target="_blank">رابط منشور فيسبوك</a><br>` : ""}
-                            ${data.found ? "<span style='color: lime;'>✅ تم الاسترداد</span>" : ""}
-                        </div>`;
-                }
-            });
-        }
-
-        window.onload = () => {
-            document.getElementById("searchBtn").onclick = searchPosts;
-            searchPosts();
-        };
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>دايرة الأمل</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #ccc;
+    }
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      background-color: #222;
+      border: 2px solid #fff;
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn:hover {
+      background-color: #444;
+      transform: scale(1.05);
+    }
+    .footer {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      color: #555;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <h1>البحث عن السيارات</h1>
-    <input type="text" id="searchBox" placeholder="ابحث باللون، اللوحة، النوع...">
-    <button id="searchBtn">بحث</button>
-    <div id="results"></div>
+  <h1>منصة استرداد المركبات</h1>
+  <h2>منظمة دايرة الأمل</h2>
+  <div class="buttons">
+    <a class="btn" href="publish.html">نشر</a>
+    <a class="btn" href="search.html">البحث</a>
+    <a class="btn" href="stats.html">الإحصائيات</a>
+  </div>
+  <div class="footer">H. H. I. M</div>
 </body>
 </html>
