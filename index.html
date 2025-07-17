@@ -1,1 +1,67 @@
-<!DOCTYPE html><html><head><title>منصة أمل لاسترداد المركبات</title></head><body><h1>واجهة رئيسية</h1></body></html>
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة أمل</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: #005baa;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin: 0.2em 0;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin: 0.2em 0 2em 0;
+        }
+        .buttons {
+            display: flex;
+            gap: 1em;
+        }
+        .btn {
+            padding: 0.75em 2em;
+            font-size: 1em;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+            color: #005baa;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #e0e0e0;
+        }
+        footer {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            font-weight: bold;
+            font-size: 1em;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>منصة أمل لاسترداد المركبات</h1>
+    <h2>منظمة دايرة الأمل</h2>
+    <div class="buttons">
+        <button class="btn" onclick="location.href='search.html'">البحث</button>
+        <button class="btn" onclick="location.href='publish.html'">النشر</button>
+        <button class="btn" onclick="location.href='stats.html'">الإحصائيات</button>
+    </div>
+    <footer>H. H. I. M</footer>
+</body>
+</html>
