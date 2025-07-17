@@ -2,42 +2,71 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>نشر سيارة</title>
-  <script type="module" src="publish.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نشر مركبة</title>
   <style>
-    body {
-      font-family: sans-serif;
-      background-color: #121212;
-      color: white;
-      padding: 1rem;
-    }
-    input, textarea, button {
-      display: block;
-      margin-top: 1rem;
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 8px;
-      border: none;
-    }
-    button {
-      background-color: #2196f3;
-      color: white;
-      font-weight: bold;
-    }
+    body { font-family: Arial; background-color: #121212; color: white; padding: 20px; direction: rtl; }
+    input, textarea, button, select { display: block; margin-top: 10px; padding: 10px; width: 100%; max-width: 400px; background-color: #1e1e1e; color: white; border: 1px solid #444; border-radius: 5px; }
+    button { background-color: #2196F3; border: none; cursor: pointer; }
+    button:hover { background-color: #1976D2; }
   </style>
 </head>
 <body>
-  <h1>نشر سيارة</h1>
-  <input type="text" id="type" placeholder="نوع السيارة" />
-  <input type="text" id="color" placeholder="لون السيارة" />
-  <input type="text" id="plate" placeholder="رقم اللوحة" />
-  <input type="text" id="chassis" placeholder="رقم الشاسيه (اختياري)" />
-  <input type="text" id="facebookLink" placeholder="رابط منشور الفيسبوك (اختياري)" />
-  <input type="file" id="image" accept="image/*" />
-  <button onclick="publish()">نشر</button>
+  <h1>نشر معلومات مركبة</h1>
+  <form id="publishForm">
+    <input type="text" id="type" placeholder="نوع المركبة" required />
+    <input type="text" id="color" placeholder="لون المركبة" required />
+    <input type="text" id="plate" placeholder="رقم اللوحة" />
+    <input type="text" id="chassis" placeholder="رقم الشاسيه" />
+    <input type="text" id="location" placeholder="الموقع" required />
+    <input type="text" id="date" readonly />
+    <textarea id="notes" placeholder="ملاحظات إضافية (اختياري)"></textarea>
+    <input type="url" id="facebookLink" placeholder="رابط منشور الفيسبوك (اختياري)" />
+    <input type="file" id="image" accept="image/*" />
+    <button type="submit">نشر</button>
+  </form>
 
-  <p id="status"></p>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyANAmBZ2ySOP6hcVMZ2zfu8PsnXnHqZbOA",
+      authDomain: "amal-recovery.firebaseapp.com",
+      projectId: "amal-recovery",
+      storageBucket: "amal-recovery.appspot.com",
+      messagingSenderId: "1082715046722",
+      appId: "1:1082715046722:web:d1a116cc70f2276f513edb"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.getElementById("date").value = new Date().toLocaleDateString("ar-EG");
+
+    document.getElementById("publishForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const docData = {
+        type: document.getElementById("type").value,
+        color: document.getElementById("color").value,
+        plate: document.getElementById("plate").value,
+        chassis: document.getElementById("chassis").value,
+        location: document.getElementById("location").value,
+        date: document.getElementById("date").value,
+        notes: document.getElementById("notes").value,
+        facebookLink: document.getElementById("facebookLink").value,
+        timestamp: serverTimestamp()
+      };
+      try {
+        await addDoc(collection(db, "vehicles"), docData);
+        alert("تم النشر بنجاح!");
+        document.getElementById("publishForm").reset();
+        document.getElementById("date").value = new Date().toLocaleDateString("ar-EG");
+      } catch (error) {
+        alert("حدث خطأ أثناء النشر: " + error);
+      }
+    });
+  </script>
 </body>
 </html>
